@@ -11,7 +11,30 @@
         <label for="productName">Add Product</label>
         <input th:field="*{productName}" type="text" id="productName"/>
     </div>
-    <button type="submit" value="Submit">Добавить продукт</button>
+    <button type="submit" value="Submit">Add Product</button>
 </form>
+<form th:action="@{/add_category}" th:object="${category}" method="post">
+    <div>
+        <label for="categoryName">Add Category</label>
+        <input th:field="*{categoryName}" type="text" id="categoryName"/>
+    </div>
+    <button type="submit" value="Submit">Add Category</button>
+</form>
+Products
+<div>
+    <table th:each="category :${categories}">
+        <thead>
+        <tr>
+            <th th:text="${category.categoryName}"/>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="product : ${category.getProducts()}">
+            <td><span th:text="${product.productName}"/></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
