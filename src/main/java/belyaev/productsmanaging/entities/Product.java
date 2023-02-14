@@ -1,5 +1,6 @@
 package belyaev.productsmanaging.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,4 +17,10 @@ public class Product {
    private int productId;
 
    private String productName;
+
+   @ManyToOne(optional = false)
+   @JoinColumn(name = "product_category_id", nullable = false)
+   @JsonIgnore
+   private Category categoryOfProducts;
+
 }
