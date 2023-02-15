@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>Products</div>
-<form th:action="@{/add_product}" th:object="${product}" method="post">
+<form th:action="@{/add_product}" th:object="${product_add}" method="post">
     <div>
         <label for="productName">Add Product</label>
         <input th:field="*{productName}" type="text" id="productName"/>
@@ -27,11 +27,16 @@ Products
         <tr>
             <th th:text="${category.categoryName}"/>
         </tr>
+        <a th:href="@{/delete_category(category_id=${category.getCategoryId()})}" class="ui-button">Delete</a>
         </thead>
         <tbody>
 
         <tr th:each="product : ${category.getProducts()}">
-            <td><span th:text="${product.productName}"/></td>
+            <td><span th:text="${product.productName}"/>
+            </td>
+            <td>
+                <a th:href="@{/delete_product(product_id=${product.getProductId()})}" class="ui-button">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>
