@@ -23,4 +23,12 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+
+    public void deleteProduct(int id) {
+        productRepository.deleteById(id);
+    }
+
+    public void changeProductName(String name, int id) {
+        productRepository.setProductNameById(name, id);
+    }
 }

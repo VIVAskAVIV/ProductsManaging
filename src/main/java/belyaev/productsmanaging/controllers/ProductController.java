@@ -1,4 +1,4 @@
-package belyaev.productsmanaging;
+package belyaev.productsmanaging.controllers;
 
 import belyaev.productsmanaging.entities.Category;
 import belyaev.productsmanaging.entities.Product;
@@ -7,8 +7,7 @@ import belyaev.productsmanaging.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProductController {
@@ -25,7 +24,7 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("product", new Product());
+        model.addAttribute("product_add", new Product());
         model.addAttribute("category", new Category());
         model.addAttribute("categories", categoryService.getAllCategories());
         return "index";
@@ -34,9 +33,14 @@ public class ProductController {
     @PostMapping("/add_product")
     public String addProduct(Product product, Model model) {
         Category category = categoryService.getCategoryByName("No Category");
-        System.out.println("123");
         product.setCategoryOfProducts(category);
         productService.addProduct(product);
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete_product")
+    public String deleteProduct(@RequestParam(name = "product_id") int productId, Model model) {
+        productService.deleteProduct(productId);
         return "redirect:/";
     }
 }
